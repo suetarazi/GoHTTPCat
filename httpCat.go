@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	response, err := http.Get("https://http.cat")
+	response, err := http.Get("https://http.cat/404")
 	if err != nil {
 		fmt.Print(err.Error())
 		os.Exit(1)
@@ -20,7 +20,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(string(responseData))
+	fmt.Println(len(responseData))
+	fmt.Println(response.Header.Get("Content-Type"))
+
+	ioutil.WriteFile("404.jpg", responseData, 0444)
+	//fmt.Println(string(responseData))
 
 	//	var responseObject http.Response
 	//	json.Unmarshal(responseData, &responseObject)
